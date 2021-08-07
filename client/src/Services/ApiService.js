@@ -28,6 +28,7 @@ const addUser = async (firstName, lastName, email, password) => {
 
 const getCompanies = async () => {
   const res = await fetch(`${baseUrl}options`);
+  console.log('getCompanies', res)
   return await res.json();
 }
 

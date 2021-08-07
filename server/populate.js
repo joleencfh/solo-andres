@@ -2,7 +2,8 @@ const fetch = require('cross-fetch');
 const Option = require('./models/option');
 require('dotenv').config()
 
-const companies = ['3M', 'Abiomed', 'Accenture', 'Adobe', 'Aflac', 'Allegion', 'Alphabet', 'Amazon', 
+
+const companies = [ '3M', 'Abiomed', 'Accenture', 'Adobe', 'Aflac', 'Allegion', 'Alphabet', 'Amazon', 
 'Amcor', 'Ametek', 'Amgen', 'Ansys', 'Anthem', 'Aon', 'Apple', 'Aptiv', 'ADM', 'Assurant', 'Autodesk', 
 'AutoZone', 'Biogen', 'Broadcom', 'CarMax', 'Catalent', 'Caterpillar', 'CBRE', 'CDW', 'Celanese', 'Cerner', 
 'Chubb', 'Cigna', 'Citigroup', 'Clorox', 'Comcast', 'Comerica', 'Copart', 'Corning', 'Corteva', 'Costco',  
@@ -18,7 +19,7 @@ const populate = async () => {
     for (let i = 0; i < companies.length; i++) {
       const option = {chain: {}};
 
-      console.log('api key', process.env.API_KEY)
+      // console.log('api key', process.env.API_KEY)
       
       const res = await fetch(`https://sandbox.tradier.com/v1/markets/search?q=${companies[i]}&indexes=false`, {
         headers: {
@@ -28,7 +29,7 @@ const populate = async () => {
         }
       });
       
-      console.log('first fetch -----', res.status, res.ok)
+      console.log('company name: ', companies[i], res.status, res.ok)
 
       const company = await res.json();
 

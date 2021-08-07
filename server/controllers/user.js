@@ -7,7 +7,13 @@ const getUser = async (req, res) => {
     const selectedUser = await User.findOne({ 
       email: req.body.email,
       password: req.body.password
-    });
+    }); 
+    if (!selectedUser) {
+      res.status(401);
+      res.send("user not found")
+    }
+    else 
+    // console.log(selectedUser, 'selected user')
     res.status(200);
     res.send(selectedUser);
   }
@@ -20,9 +26,9 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     // console.log('req.body', req.body)
-    User.create(req.body);
+    const newUser = User.create(req.body);
     res.status(201);
-    res.send();
+    res.send(newUser);
   }
   catch (err) {
     console.log(err)
@@ -47,7 +53,7 @@ const addToPortfolio = async (req, res) => {
   try {
     const {email, option} = req.body;
     const user = await User.findOne( {email} );
-    console.log(user);
+    // console.log(user);
     user.portfolio.push(option);
     user.balance = user.balance - option.ask*option.contract_size; // multiply by the contract size
     // this should be user.balance = user.balance - req.body.option.ask*req.body.option.contract_size 

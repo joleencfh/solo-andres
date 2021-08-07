@@ -22,12 +22,13 @@ function App() {
 
   async function login(email, password) {
     const currentUser = await findUser(email, password);
+    console.log(currentUser)
     setUserState(currentUser);
     setAuthentication(true); 
   }
 
   async function register(firstName, lastName, email, password) {
-    const newUser = addUser(firstName, lastName, email, password);
+    const newUser =  await addUser(firstName, lastName, email, password);
     console.log(newUser);
     setUserState(newUser);
     setAuthentication(true);

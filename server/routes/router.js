@@ -12,4 +12,10 @@ router.post('/addToPf', user.addToPortfolio);
 router.put('/removeFromWl', user.removeFromWatchlist)
 router.put('/sell', user.sell);
 
+
+router.get('/test', (req,res) => {
+  res.status(200).json({ name: 'john' });
+});
+
+
 module.exports = router;

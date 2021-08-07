@@ -10,8 +10,9 @@ export default function Balance({ userState }) {
 
   return (
     <div className="Balance">
-      Balance: 
-      <div id="balance-box">{formatter.format(userState.balance)}</div>
+      {/* <p> {console.log("This is the userState", userState)}</p> */}{console.log( formatter.format(userState.balance))}
+      Balance: {console.log('TYPE',typeof formatter.format(userState.balance))}
+      <div data-testid='balance' id="balance-box">{formatter.format(userState.balance)}</div>
     </div>
   )
 }
