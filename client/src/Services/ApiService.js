@@ -5,14 +5,19 @@ const { default: fetch } = require("cross-fetch");
 const baseUrl = 'http://localhost:3001/';
 
 const findUser = async (email, password) => {
-  const res = await fetch(`${baseUrl}login`, {
-    method: 'POST',
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({email, password}) 
-  });
+  try {
+    const res = await fetch(`${baseUrl}login`, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({email, password}) 
+    });
   return await res.json();
+  }
+  catch(e){
+    console.log(e);
+  }
 }
 
 const addUser = async (firstName, lastName, email, password) => {

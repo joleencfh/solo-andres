@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'; 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'; 
 import OptionChain from '../OptionChain/OptionChain.component';
 import './ListOption.css';
 
@@ -14,7 +14,9 @@ export default function ListOption({ company, selectOption }) {
           <ul>
             <li>
               {/* <Link to="/chain">{company.symbol}</Link> */}
-              <h6 id="information" onClick={() => {
+              <h6 id="information" 
+                  data-testid = "ticker"
+                  onClick={() => {
                 selectOption(company)
                 }}>{company.symbol}
               </h6>

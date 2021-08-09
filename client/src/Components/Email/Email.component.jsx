@@ -1,6 +1,10 @@
-import './Email.css';
+import { useContext } from 'react';
+import { MainContext } from '../../Context/Context';
 
-export default function Email({ userState }) {
+import './Email.css';
+export default function Email() {
+  
+  const {userState} = useContext(MainContext);
   return (
     <div className="Email">
       User: 

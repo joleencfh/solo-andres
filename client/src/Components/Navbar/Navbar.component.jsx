@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Email from '../Email/Email.component';
 import Balance from '../Balance/Balance.component';
 import './Navbar.css';
 import appLogo from '../../images/app_logo.png';
+import { MainContext } from '../../Context/Context';
 
 
 
-export default function Navbar( { userState, authentication, setAuthentication } ) {
+
+export default function Navbar() {
+
+  const { authentication, setAuthentication } = useContext(MainContext);
 
   return (
     <div className="Navbar">
@@ -27,13 +31,13 @@ export default function Navbar( { userState, authentication, setAuthentication }
           <div id="email-navbar">
             <Email 
               id="email-render"
-              userState={userState}
+      
             />
           </div>
 
           <div id="balance">
             <Balance 
-              userState={userState}
+     
             />
           </div>
 

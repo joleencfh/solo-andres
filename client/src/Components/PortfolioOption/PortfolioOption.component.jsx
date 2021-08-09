@@ -1,12 +1,16 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import { MainContext } from '../../Context/Context';
+import { deleteFromPortfolio } from '../../Utils/OptionsUtils';
 import './PortfolioOption.css';
 
-export default function PortfolioOption({ option, deleteFromPortfolio }) {
+
+export default function PortfolioOption({ option}) {
   
   // fetch the price of the current stock (look for it by option.symbol)
   // calculate PL depending if it's call/put and set these states
   // calculate ATM, ITM, OTM (if.....)
 
+  const { userState, setUserState } = useContext(MainContext);
   const [profitLoss, setProfitLoss] = useState(0);
   const [money, setMoney] = useState('ATM');
 
@@ -35,7 +39,7 @@ export default function PortfolioOption({ option, deleteFromPortfolio }) {
   //   setProfitLoss(stockPriceTemp - option.strike)
   // }
 
-  // // calculate ITM, ATM, OTM
+  // // calculate ITM, ATM, OTMπ
   // if (option.option_type === 'call') {
   //   if (option.strike < stockPriceTemp) setMoney('ITM')
   //   else if (option.strike === stockPriceTemp) setMoney('ATM')
@@ -64,7 +68,11 @@ export default function PortfolioOption({ option, deleteFromPortfolio }) {
         <div className="portfolio-options money">{money}</div> 
         <div className="portfolio-options sell">
           <button className="portfolio-options sell-button" onClick={() => {
-            deleteFromPortfolio(option)
+           deleteFromPortfolio(option, userState.email);
+           setUserState((prevUser) => ({...prevUser, portfolio: prevUser.portfolio.filter(userOption => userOption._id !== option._id), balance: prevUser.balance + option.bid}));
+            // setUserState((prevUser) => ({...prevUser, watchlist: prevUser.watchlist.filter(userOption => userOption._id !== option._id)}))
+
+
           }}>✌️</button>
         </div>
       </div>

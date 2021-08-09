@@ -1,58 +1,70 @@
-import Login from './Login.component';
-import { render, screen } from '@testing-library/react';
+import Login from "./Login.component";
+import { findUser } from "../../Services/ApiService";
+import {login} from '../../Utils/AuthUtils';
+import { screen, render } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
+import { useContext } from "react";
+import { expect } from "@jest/globals";
+import { AuthContext, MainContext} from '../../Context/Context';
+
+jest.mock('../../Services/ApiService', () => {
+    return {
+       findUser: () => ({
+           email: 'test@test.com',
+       }),
+       addUser: () => {}
+    }
+})
+
+describe('login function should call findUser function', () => {
 
 
-describe('login component', ()=> {
+it('checks if find user has been called once', async()=>{
+const emailState = 'Joe@biden.us';
+const passwordState = 'joe';
+const setUserState = jest.fn();
 
+render(
+  <AuthContext.Provider 
+  value = {{
+    setEmailState: () => {},
+    setPasswordState: () => {},
+    emailState,
+    passwordState,
+  }}>
+      <MainContext.Provider
+      value= {
+          {  setUserState,
+             setPasswordState: () => {},
+             setAuthentication: () => {},
+             userState: {}
+             }
+         
+      }>
+         <Login />
+       </MainContext.Provider>
+  </AuthContext.Provider>
+       );
 
-it('should call login wih correct credentials', async ()=> {
-  const setEmailState = jest.fn();
-  const setPasswordState = jest.fn();
-  const login = jest.fn();
-  const credentials = {email: 'John@doe.com', password:'doe'};
-
-  render(
-
-  <Login 
-    setEmailState={setEmailState} 
-    setPasswordState={setPasswordState}
-    emailState={credentials.email} 
-    passwordState={credentials.password}
-   
-    login={login}
-  />
-  )
-
-  const emailInput = screen.getByPlaceholderText(/Email/i) ;
-  const passwordInput = screen.getByPlaceholderText(/Password/i);
-  const loginBtn = screen.getByRole('button', {name: /Go!/i}); 
+const emailInput = screen.getByPlaceholderText(/Email/i) ;
+const passwordInput = screen.getByPlaceholderText(/Password/i);
+const loginBtn = screen.getByRole('button', {name: /Go!/i}); 
 
  // populate input fields 
-  userEvent.type(emailInput, 'John@doe.com'); 
-  userEvent.type(passwordInput, 'pwd'); 
+userEvent.type(emailInput, 'John@doe.com'); 
+userEvent.type(passwordInput, 'pwd'); 
 
-  // submit form 
-  await userEvent.click(loginBtn); 
+// submit form 
+await userEvent.click(loginBtn); 
 
-  // assert 
-  expect(login).toHaveBeenCalledWith(credentials.email, credentials.password)
+expect(setUserState).toHaveBeenCalledWith({email: 'test@test.com'})
 
-//   // to check how many times setEmailState and setPasswordState has been called 
-//   expect(setPasswordState).toHaveBeenCalledTimes(3);
-//   expect(setEmailState).toHaveBeenCalledTimes(12);
-}) 
 
+
+
+})  
+    
 })
-
-test('should have go text to login on button', ()=> {
-  render(<Login />);
-  // Go!
-  const loginBtn = screen.getByRole('button', {name: /Go!/i}); 
-  expect(loginBtn).toBeInTheDocument();
-  
-})
-
 
 
 

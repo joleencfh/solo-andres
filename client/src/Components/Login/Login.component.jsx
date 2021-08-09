@@ -1,11 +1,33 @@
 import './Login.css';
+import { AuthContext, MainContext} from '../../Context/Context';
 
-export default function Login({ emailState, setEmailState, passwordState, setPasswordState, login }) {
+import { useContext } from 'react';
+import {login} from '../../Utils/AuthUtils';
+import { findUser } from '../../Services/ApiService';
 
+
+export default function Login() {
+
+  const { emailState, passwordState, setEmailState,
+     setPasswordState}  = useContext(AuthContext);
+  const { userState, setUserState, setAuthentication}  = useContext(MainContext);
   
-  const submitHandler = (e) => {
+
+  const submitHandler = async  (e) => {
     e.preventDefault();
-    login(emailState, passwordState)
+// console.log('set email state ',setEmailState )
+    // console.log(emailState, passwordState)
+// login function from Api utils login(email, password)
+  const user = await findUser(emailState, passwordState)
+  // console.log('emailState', emailState);
+  // console.log('passwordState', passwordState);
+  // console.log('setUserState function', setUserState);
+  // console.log('login user ', user);
+  // console.log(setUserState);
+  setUserState(user)
+  // await setUserState(user)
+  setAuthentication(true);
+  // console.log('userState ----  ', userState);
   }
 
   return (

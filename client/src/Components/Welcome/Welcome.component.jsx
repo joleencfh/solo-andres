@@ -1,17 +1,14 @@
 import { useState } from 'react'
+import { AuthContext } from '../../Context/Context';
 import Login from '../Login/Login.component';
 import Register from '../Register/Register.component';
-import './Welcome.css';
 import appLogo from '../../images/app_logo.png';
 import homeBackground from '../../images/home_background.png';
 import homeFooterLeft from '../../images/footer_left.png';
 import homeFooterRight from '../../images/footer_right.png';
-import snapshot from '../../images/snapshot.png';
-import bloomberg from '../../images/bloomberg.png';
-import economist from '../../images/economist.png';
-import forbes from '../../images/forbes.jpeg';
+import './Welcome.css';
 
-export default function Welcome({ login, register }) {
+export default function Welcome() {
 
   const [selectedButton, setSelectedButton] = useState(true);
   const [emailState, setEmailState] = useState('');
@@ -21,6 +18,18 @@ export default function Welcome({ login, register }) {
 
 
   return (
+      <AuthContext.Provider 
+        value={{
+          emailState: emailState,
+          setEmailState: setEmailState,
+          passwordState: passwordState,
+          setPasswordState: setPasswordState,
+          firstNameState: firstNameState,
+          setFirstNameState: setFirstNameState,
+          lastNameState: lastNameState,
+          setLastNameState: setLastNameState,
+        }}
+        >
     <div className="Welcome">
 
       <div 
@@ -65,24 +74,17 @@ export default function Welcome({ login, register }) {
         
 
         {selectedButton ? 
-          <Login 
-            emailState={emailState}
-            setEmailState={setEmailState}
-            passwordState={passwordState}
-            setPasswordState={setPasswordState}
-            login={login}
-          />
-        :
+          <Login /> :
           <Register 
-            firstNameState={firstNameState}
-            setFirstNameState={setFirstNameState}
-            lastNameState={lastNameState}
-            setLastNameState={setLastNameState}
-            emailState={emailState}
-            setEmailState={setEmailState}
-            passwordState={passwordState}
-            setPasswordState={setPasswordState}
-            register={register}
+            // firstNameState={firstNameState}
+            // setFirstNameState={setFirstNameState}
+            // lastNameState={lastNameState}
+            // setLastNameState={setLastNameState}
+            // emailState={emailState}
+            // setEmailState={setEmailState}
+            // passwordState={passwordState}
+            // setPasswordState={setPasswordState}
+            // register={register}
           />
         }
 
@@ -94,5 +96,6 @@ export default function Welcome({ login, register }) {
       </div>
       
     </div>
+    </AuthContext.Provider>
   )
 }

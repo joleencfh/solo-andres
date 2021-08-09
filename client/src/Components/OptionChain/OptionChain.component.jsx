@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './OptionChain.css';
+import { optionToWatchlist, optionToPortfolio } from '../../Utils/OptionsUtils';
 import graphGoogl from '../../images/graph_Googl.png';
 import graphLulu from '../../images/graph_Lulu.png';
 import graphTwtr from '../../images/graph_Twtr.png';
 import graphCat from '../../images/graph_Cat.png';
+import { MainContext } from '../../Context/Context';
 
 
-export default function OptionChain({ company, showList, optionToWatchlist, optionToPortfolio, setSelectedView }) {
+export default function OptionChain({ company, showList, setSelectedView }) {
+
+
+  const {userState, setUserState} = useContext(MainContext);
+  // get the value and set state 
+
+    // setUserState((prevUser) => ({...prevUser, watchlist: [...prevUser.watchlist, option]}));
 
   // give this component a button to go back to the OptionsList component (i.e close the chain)
   // write the functionality to select one option from the chain and be able to add it to portfolio or watchlist
@@ -50,9 +58,11 @@ export default function OptionChain({ company, showList, optionToWatchlist, opti
 
 
       <div id="the-actual-chain">
-        {company.chain.expiration1.map(option => (
+        {company.chain.expiration1.map((option, index) => (
 
-          <div id="chain-option">
+          <div id="chain-option"
+               key={index}
+               >
             <div className="chain-info description">{option.description}</div>
             <div className="chain-info bid">{(Math.round(option.bid*100) / 100).toFixed(2)}</div>
             <div className="chain-info ask">{(Math.round(option.ask*100) / 100).toFixed(2)}</div>
@@ -63,11 +73,13 @@ export default function OptionChain({ company, showList, optionToWatchlist, opti
             <div className="chain-info small-buttons">
               <button id="to-wl-button" 
                 onClick={() => {
-                  optionToWatchlist(option)
+                  optionToWatchlist(option, userState.email)
+                  setUserState((prevUser) => ({...prevUser, watchlist: [...prevUser.watchlist, option]}));
                   setSelectedView(false)
                 }}>🔎</button>
               <button id="to-pf-button" onClick={() => {
-                optionToPortfolio(option)
+                optionToPortfolio(option, userState.email)
+                setUserState((prevUser) => ({...prevUser, portfolio: [...prevUser.portfolio, option], balance: prevUser.balance - option.ask}));
                 setSelectedView(true)
               }}>🤑</button>
             </div>
@@ -75,8 +87,9 @@ export default function OptionChain({ company, showList, optionToWatchlist, opti
         ))}
 
         
-          {company.chain.expiration2.map(option => (
-            <div id="chain-option">
+          {company.chain.expiration2.map((option, index) => (
+            <div id="chain-option"
+                  key={index}>
               <div className="chain-info description">{option.description}</div>
               <div className="chain-info bid">{(Math.round(option.bid*100) / 100).toFixed(2)}</div>
               <div className="chain-info ask">{(Math.round(option.ask*100) / 100).toFixed(2)}</div>
@@ -87,16 +100,18 @@ export default function OptionChain({ company, showList, optionToWatchlist, opti
               <div className="chain-info small-buttons">
                 <button id="to-wl-button" 
                   onClick={() => {
-                    optionToWatchlist(option)
+                    optionToWatchlist(option, userState.email)
+                    setUserState((prevUser) => ({...prevUser, watchlist: [...prevUser.watchlist, option]}));
                     setSelectedView(false)
                   }}>🔎</button>
                 <button id="to-pf-button" onClick={() => {
-                  optionToPortfolio(option)
+                  optionToPortfolio(option, userState.email)
+                  setUserState((prevUser) => ({...prevUser, portfolio: [...prevUser.portfolio, option], balance: prevUser.balance - option.ask}));
                   setSelectedView(true)
                 }}>🤑</button>
               </div>
             </div>
-        ))}
+        ) )}
       </div>
 
       <div>

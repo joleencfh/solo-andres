@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import WatchlistOption from '../WatchlistOption/WatchlistOption.component';
 import PortfolioOption from '../PortfolioOption/PortfolioOption.component';
 import './WatchlistPortfolio.css';
+import { MainContext } from '../../Context/Context';
 
 
 
-export default function WatchlistPortfolio({ selectedView, userState, setUserState, optionToPortfolio, deleteFromWatchlist, deleteFromPortfolio }) {
+
+export default function WatchlistPortfolio({ selectedView }) {
 
   const [titleState, setTitleState] = useState('Watchlist');
-  // console.log('selectedView', selectedView)
+  const {userState} = useContext(MainContext);
+  
+  console.log('watchlistPortfolio user:  ', userState);
 
   const watchlistItems = userState.watchlist.map((option, i) => {
     return (
@@ -17,8 +21,6 @@ export default function WatchlistPortfolio({ selectedView, userState, setUserSta
           key={option._id + i}
           id={option._id}
           option={option}
-          optionToPortfolio={optionToPortfolio}
-          deleteFromWatchlist={deleteFromWatchlist}
         />
       </div>
     )
@@ -31,7 +33,6 @@ export default function WatchlistPortfolio({ selectedView, userState, setUserSta
           key={option._id + i}
           id={option._id}
           option={option}
-          deleteFromPortfolio={deleteFromPortfolio}
         />
       </div>
     )

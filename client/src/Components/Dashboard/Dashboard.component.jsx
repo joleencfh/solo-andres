@@ -1,11 +1,13 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import User from '../User/User.component';
 import Market from '../Market/Market.component';
 import './Dashboard.css';
+import { useContext } from 'react';
 
 
-export default function Dashboard({ userState, setUserState, optionToWatchlist, optionToPortfolio, deleteFromWatchlist, deleteFromPortfolio }) {
+// userState, setUserState, optionToWatchlist, optionToPortfolio, deleteFromWatchlist, deleteFromPortfolio 
+export default function Dashboard() {
 
   const [selectedView, setSelectedView] = useState(false);
   // default value?? if false --> show watchlist, otherwise --> show portfolio
@@ -15,11 +17,6 @@ export default function Dashboard({ userState, setUserState, optionToWatchlist, 
 
       <div id="user-component">
         <User 
-          userState={userState}
-          setUserState={setUserState}
-          optionToPortfolio={optionToPortfolio}
-          deleteFromWatchlist={deleteFromWatchlist}
-          deleteFromPortfolio={deleteFromPortfolio}
           selectedView={selectedView}
           setSelectedView={setSelectedView}
         />
@@ -27,13 +24,11 @@ export default function Dashboard({ userState, setUserState, optionToWatchlist, 
 
       <div id="market-component">
         <Market 
-          userState={userState}
-          setUserState={setUserState}
-          optionToWatchlist={optionToWatchlist}
-          optionToPortfolio={optionToPortfolio}
+        
+         
           selectedView={selectedView}
           setSelectedView={setSelectedView}
-          setSelectedView={setSelectedView}
+     
         />
       </div>
 

@@ -1,12 +1,25 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../Context/Context';
+import { register } from '../../Utils/AuthUtils';
 import './Register.css';
 
-export default function Register({ firstNameState, setFirstNameState, lastNameState, setLastNameState, emailState, setEmailState, passwordState, setPasswordState, register }) {
+export default function Register() {
 
   const submitHandler = async () => {
     register(firstNameState, lastNameState, emailState, passwordState)
   }
 
+  const { firstNameState, 
+          setFirstNameState, 
+          lastNameState, 
+          setLastNameState, 
+          emailState, 
+          setEmailState, 
+          passwordState, 
+          setPasswordState } = useContext(AuthContext);
+
   return (
+
     <div className="Register">
 
       <form id="register-form" onSubmit={submitHandler}>

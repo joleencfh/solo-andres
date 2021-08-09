@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import WatchlistPortfolio from '../WatchlistPortfolio/WatchlistPortfolio.component';
 import './User.css';
 import mainBackground from '../../images/main_background.png';
 
-export default function User({ userState, setUserState, optionToPortfolio, deleteFromWatchlist, deleteFromPortfolio, selectedView, setSelectedView }) {
+export default function User({selectedView, setSelectedView }) {
 
   // const [selectedView, changeSelectedView] = useState(false);
   // default value?? if false --> show watchlist, otherwise --> show portfolio ???
@@ -27,11 +26,6 @@ export default function User({ userState, setUserState, optionToPortfolio, delet
 
       <WatchlistPortfolio
         selectedView={selectedView}
-        userState={userState}
-        setUserState={setUserState}
-        optionToPortfolio={optionToPortfolio}
-        deleteFromWatchlist={deleteFromWatchlist}
-        deleteFromPortfolio={deleteFromPortfolio}
       />
 
     </div>
