@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { getCompanies } from '../../Services/ApiService';
 import ListOption from '../ListOption/ListOption.component';
 import './OptionsList.css';
+import { CompanyType } from '../../Types';
 
 export default function OptionsList({ selectOption }) {
   // companies list state --> move it to the company list component
-  const [companiesList, setCompaniesList] = useState([]);
+  const [companiesList, setCompaniesList] = useState([] as CompanyType[]);
 
   async function getAllCompanies() {
-    const allCompanies = await getCompanies();
+    const allCompanies: CompanyType[] = await getCompanies();
     // console.log(allCompanies);
     setCompaniesList(allCompanies);
   }
@@ -36,7 +37,7 @@ export default function OptionsList({ selectOption }) {
         <h4 id='next-exp'>Next Expiration</h4>
       </div>
 
-      {companiesList.map((company) => (
+      {companiesList.map((company: CompanyType) => (
         <ListOption
           key={company._id}
           company={company}

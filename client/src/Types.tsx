@@ -16,6 +16,26 @@ export const defaultAuthContext: AuthContextType = {
   setLastNameState: () => {},
 };
 
+type ExpirationType = {
+  symbol: string;
+  description: string;
+  bid: number;
+  ask: number;
+  strike: number;
+  contract_size: number;
+  expiration_date: string;
+  option_type: string;
+};
+
+export type CompanyType = {
+  _id: string;
+  symbol: string;
+  description: string;
+  chain: {
+    expiration1: [ExpirationType];
+    expiration2: [ExpirationType];
+  };
+};
 // const defaultUserState: UserType = {
 //   firstName: '',
 //   lastName: '',
@@ -68,12 +88,12 @@ export type PortfolioType = {
   symbol: string; // long symbol
   description: string;
   option_type: string;
-  contract_size: Number;
-  bid: Number;
-  ask: Number;
-  buy_price: Number; // equal to ask at the time you bought
-  strike: Number;
-  expiration_date: String;
+  contract_size: number;
+  bid: number;
+  ask: number;
+  buy_price: number; // equal to ask at the time you bought
+  strike: number;
+  expiration_date: string;
 };
 
 export type MainContextType = {
@@ -93,9 +113,3 @@ export type AuthContextType = {
   lastNameState: string;
   setLastNameState: () => void;
 };
-
-// userState: userState,
-//     setUserState: setUserState,
-//     authentication: authentication,
-//     setAuthentication: setAuthentication,
-// }
