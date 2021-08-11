@@ -4,6 +4,7 @@ import OptionChain from '../OptionChain/OptionChain.component';
 import './ListOption.css';
 
 export default function ListOption({ company, selectOption }) {
+  
   return (
     <Router>
 
