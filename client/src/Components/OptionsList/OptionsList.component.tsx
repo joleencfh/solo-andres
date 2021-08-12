@@ -5,12 +5,10 @@ import './OptionsList.css';
 import { CompanyType } from '../../Types';
 
 export default function OptionsList({ selectOption }) {
-  // companies list state --> move it to the company list component
   const [companiesList, setCompaniesList] = useState([] as CompanyType[]);
 
   async function getAllCompanies() {
     const allCompanies: CompanyType[] = await getCompanies();
-    // console.log(allCompanies);
     setCompaniesList(allCompanies);
   }
 
