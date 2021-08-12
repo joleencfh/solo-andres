@@ -15,14 +15,11 @@ function App() {
 
   // authentication state
   const [authentication, setAuthentication] = useState(false);
-  // if false --> user not logged in, true --> user is logged in
-
-
-  // handler functions
+ 
 
   async function login(email, password) {
     const currentUser = await findUser(email, password);
-    console.log(currentUser)
+ 
     setUserState(currentUser);
     setAuthentication(true); 
   }
